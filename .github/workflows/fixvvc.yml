@@ -20,4 +20,4 @@ jobs:
     - name: Patch libvvdec before compile
       run: cd FFmpeg && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && pkg-config --cflags libvvdec
     - name: Build FFmpeg with Windows
-      run: chmod +x *.sh && chmod +x ./configure && ./configure --arch=x86_64 --target-os=mingw32 --cross-prefix=x86_64-w64-mingw32- --enable-libvvdec --enable-pic --enable-openssl --enable-libxml2 && make -j && make install
+      run: chmod +x ./configure && ./configure --arch=x86_64 --target-os=mingw32 --cross-prefix=x86_64-w64-mingw32- --enable-libvvdec --enable-pic --enable-openssl --enable-libxml2 && make -j && make install
