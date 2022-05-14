@@ -18,6 +18,6 @@ jobs:
     - name: Build and Install libvvdec
       run: cd vvdec && make release && make install && cd ../
     - name: Patch libvvdec before compile
-      run: cd && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && pkg-config --cflags libvvdec
+      run: cd FFmpeg && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && pkg-config --cflags libvvdec
     - name: Build FFmpeg with Windows
       run: ./configure --arch=x86_64 --target-os=mingw32 --cross-prefix=x86_64-w64-mingw32- --enable-libvvdec --enable-pic --enable-openssl --enable-libxml2 && make -j && make install
