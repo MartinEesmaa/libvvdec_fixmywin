@@ -1,0 +1,21 @@
+name: FIX LIBVVDEC
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Git clone for vvdec and lehmann-c/FFmpeg
+      run: git clone https://github.com/fraunhoferhhi/vvdec.git && git clone https://github.com/lehmann-c/FFmpeg.git
+    - name: Build and Install libvvdec
+      run: cd vvdec && make release && make install && cd ../
+    - name: Build FFmpeg with Windows
+      run: cd FFmpeg && ./configure --arch=x86_64 --target-os=mingw32 --cross-prefix=x86_64-w64-mingw32- --enable-libvvdec --enable-pic --enable-openssl --enable-libxml2 && make -j && make install
