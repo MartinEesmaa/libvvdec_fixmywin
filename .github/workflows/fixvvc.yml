@@ -23,3 +23,8 @@ jobs:
       run: ./ffmpeg_g -codecs
     - name: Convert .266 file to .AVI file
       run: ./ffmpeg_g -i kutsujuku.266 -c:v mpeg4 Kutsujuku.avi
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: kutsujuku
+        path: ./Kutsujuku.avi
