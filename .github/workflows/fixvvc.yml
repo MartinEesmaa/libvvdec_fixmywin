@@ -21,3 +21,5 @@ jobs:
         brew: openssl libxml2
     - name: Run codecs report
       run: ./ffmpeg_g -codecs
+    - name: Convert .266 file to .AVI file
+      run: ./ffmpeg_g -i kutsujuku.266 -c:v mpeg4 Kutsujuku.avi
