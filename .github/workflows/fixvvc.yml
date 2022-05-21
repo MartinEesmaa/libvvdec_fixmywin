@@ -18,7 +18,7 @@ jobs:
     - name: Install missing depencies
       uses: ConorMacBride/install-package@v1.0.0
       with:
-        brew: libvpx
+        brew: libvpx x264 x265
     - name: Run codecs report
       run: ./ffmpeg_g -codecs
     - name: Convert .266 file to .AVI file
