@@ -10,15 +10,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Decompress 7z
-      run: 7z x ffmpeg_g.7z && chmod +x ffmpeg_g
+      run: 7z x ffmpeg_g.7z && chmod +x ffmpeg_vvceasy_mac
     - name: Install missing depencies
       uses: ConorMacBride/install-package@v1.0.0
       with:
         brew: libvpx x264 x265 sdl2 libopusenc
     - name: Run codecs report
-      run: ./ffmpeg_g -codecs
+      run: ./ffmpeg_vvceasy_mac -codecs
     - name: Convert .266 file to .AVI file
-      run: ./ffmpeg_g -i kutsujuku.266 -c:v mpeg4 Kutsujuku.avi
+      run: ./ffmpeg_vvceasy_mac -i kutsujuku.266 -c:v mpeg4 Kutsujuku.avi
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
