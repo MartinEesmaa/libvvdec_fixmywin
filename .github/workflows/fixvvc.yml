@@ -1,20 +1,20 @@
 name: FIX LIBVVDEC
-
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
     - name: Decompress 7z
-      run: 7z x ffmpeg_g.7z.001 && chmod +x ffmpeg_g
+      run: 7z x ffmpeg_g.7z && chmod +x ffmpeg_g
+    - name: Install missing depencies
+      uses: ConorMacBride/install-package@v1.0.0
+      with:
+        brew: libvpx x264 x265 sdl2 libopusenc
     - name: Run codecs report
       run: ./ffmpeg_g -codecs
     - name: Convert .266 file to .AVI file
