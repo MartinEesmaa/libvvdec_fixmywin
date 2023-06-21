@@ -1,0 +1,37 @@
+name: Build vvc arm64 [IOS]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Git clone vvdec
+      run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec
+    - name: Build vvenc
+      run: cd vvenc && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE="../../iOS-arm64.cmake" .. -G "Xcode" && cmake --build . --config Release && cd ../../
+    - name: Build vvdec
+      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE="../../iOS-arm64.cmake" .. -G "Xcode" && cmake --build . --config Release && cd ../../
+    - name: Zip Release of vvenc
+      uses: TheDoctor0/zip-release@0.7.1
+      with:
+        filename: vvenc.zip
+        path: ./vvenc/bin/release-static
+    - name: Zip Release of vvdec
+      uses: TheDoctor0/zip-release@0.7.1
+      with:
+        filename: vvdec.zip
+        path: ./vvdec/bin/release-static
+    - name: Upload a Build Artifact of vvenc
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: vvenc
+        path: ./vvenc.zip
+    - name: Upload a Build Artifact of vvdec
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: vvdec
+        path: ./vvdec.zip
