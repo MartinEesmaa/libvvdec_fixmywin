@@ -12,25 +12,21 @@ jobs:
     - name: Git clone vvdec
       run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec
     - name: Build vvenc
-      run: cd vvenc && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE="../../iOS-arm64.cmake" .. -G "Xcode" && cmake --build . --config Release && cd ../../
+      run: cd vvenc && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=/usr/local .. -G "Xcode" && cmake --build . --config Release --target install && cd ../../
     - name: Build vvdec
-      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE="../../iOS-arm64.cmake" .. -G "Xcode" && cmake --build . --config Release && cd ../../
-    - name: Zip Release of vvenc
-      uses: TheDoctor0/zip-release@0.7.1
+      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=/usr/local .. -G "Xcode" && cmake --build . --config Release --target install && cd ../../
+    - name: Download dependicies for Brew
+      uses: ConorMacBride/install-package@v1.0.0
       with:
-        filename: vvenc.zip
-        path: ./vvenc/bin/release-static
+        brew: ffmpeg libvmaf opus libopusenc sdl2 fdk-aac libxml2
+    - name: Run and build FFmpeg
+      run: git clone --depth=1 https://github.com/MartinEesmaa/FFmpeg && cd FFmpeg && chmod +x ./configure && ./configure --enable-libfdk-aac --enable-static --enable-libvvenc --enable-libvvdec --enable-pic --enable-zlib --enable-libxml2 --enable-libdav1d --enable-libopus --enable-libvmaf --extra-ldexeflags=-static --pkg-config-flags=-static --enable-sdl2 --extra-version=VVCEasy && make -j
     - name: Zip Release of vvdec
       uses: TheDoctor0/zip-release@0.7.1
       with:
         filename: vvdec.zip
-        path: ./vvdec/bin/release-static
+        path: ffmpeg ffplay ffprobe
     - name: Upload a Build Artifact of vvenc
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: vvenc
-        path: ./vvenc.zip
-    - name: Upload a Build Artifact of vvdec
       uses: actions/upload-artifact@v3.0.0
       with:
         name: vvdec
