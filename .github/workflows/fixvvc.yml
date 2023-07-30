@@ -1,4 +1,4 @@
-name: Build VVC arm64 (aarch64)
+name: Build VVC arm64 (aarch64 / armv8)
 on:
   push:
     branches: [ main ]
