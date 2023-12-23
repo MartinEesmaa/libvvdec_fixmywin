@@ -1,4 +1,4 @@
-name: Build VVC x86_64 Intel CPU Process Build
+name: Build VVC x86_64 Intel CPU Process Compress Build
 on:
   push:
     branches: [ main ]
