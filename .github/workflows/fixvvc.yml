@@ -1,4 +1,4 @@
-name: Build VVC ARM64 (aarch64 / armv8) Mac M1 / M2 / M3+
+name: Build Versatile Video Codec ARM64 (aarch64 / armv8) Mac M1 / M2 / M3+
 on:
   push:
     branches: [ main ]
