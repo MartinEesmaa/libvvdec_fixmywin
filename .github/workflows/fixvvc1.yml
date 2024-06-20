@@ -12,9 +12,9 @@ jobs:
     - name: Git clone vvdec
       run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec
     - name: Build vvenc
-      run: cd vvenc && mkdir build && cd build && cmake .. -G "Xcode" && cmake --build . --config Release && cd ../../
+      run: cd vvenc && mkdir build && cd build && cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 .. -G "Xcode" && cmake --build . --config Release && cd ../../
     - name: Build vvdec
-      run: cd vvdec && mkdir build && cd build && cmake .. -G "Xcode" && cmake --build . --config Release && cd ../../
+      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 .. -G "Xcode" && cmake --build . --config Release && cd ../../
     - name: Zip Release of vvenc
       uses: TheDoctor0/zip-release@0.7.1
       with:
