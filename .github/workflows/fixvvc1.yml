@@ -1,4 +1,4 @@
-name: Build a new Versatile Video Codec x86_64/amd64 Intel CPU Progress Process Build
+name: Build a new Versatile Video Codec x86_64 / amd64 Intel CPU Progress Process Build
 on:
   push:
     branches: [ main ]
