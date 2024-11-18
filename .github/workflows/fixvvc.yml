@@ -1,4 +1,4 @@
-name: Build a new Fraunhofer HHI Versatile Video Codec arm 64 ( aarch64 / armv8 ) Mac M1 / M2 / M3+ 11.0+
+name: Build a new Fraunhofer HHI Versatile Video Codec arm64 ( aarch64 / armv8 ) Mac M1 / M2 / M3+ 11.0+
 on:
   push:
     branches: [ main ]
