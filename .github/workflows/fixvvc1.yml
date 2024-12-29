@@ -1,4 +1,4 @@
-name: Build a new Versatile Video Codec (VVC) x86_64/amd64 Intel CPU Progress Process Build (Mac OS)
+name: Build a new Versatile Video Codec (VVC) x86_64/amd64 Intel CPU progress process Build (Mac OS)
 on:
   push:
     branches: [ main ]
