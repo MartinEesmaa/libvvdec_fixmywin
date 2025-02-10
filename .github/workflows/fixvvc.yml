@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Git clone vvdec
       run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec
     - name: Build vvenc

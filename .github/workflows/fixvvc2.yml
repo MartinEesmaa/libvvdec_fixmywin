@@ -1,0 +1,43 @@
+name: Build a new Versatile Video Codec as (VVC) iOS architectures (armv7/armv7s/arm64)
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+    - uses: actions/checkout@v4
+    - name: Disable XCode signing before git clone and build
+      run: | 
+      killall Xcode
+      cp /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/SDKSettings.plist ~/
+      sudo /usr/libexec/PlistBuddy -c "Set :DefaultProperties:CODE_SIGNING_REQUIRED NO" /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/SDKSettings.plist
+      sudo /usr/libexec/PlistBuddy -c "Set :DefaultProperties:AD_HOC_CODE_SIGNING_ALLOWED YES" /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/SDKSettings.plist
+    - name: Git clone vvc tools
+      run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec
+    - name: Build vvenc
+      run: cd vvenc && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../../iostool.cmake .. -G "Xcode" && cmake --build . --config Release && cd ../../
+    - name: Build vvdec
+      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../../iostool.cmake .. -G "Xcode" && cmake --build . --config Release && cd ../../
+    - name: Zip Release of vvenc
+      uses: TheDoctor0/zip-release@0.7.1
+      with:
+        filename: vvenc.zip
+        path: ./vvenc/bin/release-static
+    - name: Zip Release of vvdec
+      uses: TheDoctor0/zip-release@0.7.1
+      with:
+        filename: vvdec.zip
+        path: ./vvdec/bin/release-static
+    - name: Upload a Build Artifact of vvenc
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: vvenc
+        path: ./vvenc.zip
+    - name: Upload a Build Artifact of vvdec
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: vvdec
+        path: ./vvdec.zip
