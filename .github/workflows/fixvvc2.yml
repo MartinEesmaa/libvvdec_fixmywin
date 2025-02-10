@@ -28,12 +28,12 @@ jobs:
         filename: vvdec.zip
         path: ./vvdec/bin/release-static
     - name: Upload a Build Artifact of vvenc
-      uses: actions/upload-artifact@v3.0.0
+      uses: actions/upload-artifact@v4.0.0
       with:
         name: vvenc
         path: ./vvenc.zip
     - name: Upload a Build Artifact of vvdec
-      uses: actions/upload-artifact@v3.0.0
+      uses: actions/upload-artifact@v4.0.0
       with:
         name: vvdec
         path: ./vvdec.zip
