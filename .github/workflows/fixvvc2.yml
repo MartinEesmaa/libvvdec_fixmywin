@@ -14,9 +14,9 @@ jobs:
     - name: Git clone vvc tools
       run: git clone --depth=1 https://github.com/fraunhoferhhi/vvenc && git clone --depth=1 https://github.com/fraunhoferhhi/vvdec
     - name: Build vvenc
-      run: cd vvenc && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../../iostool.cmake .. -G "Xcode" && cmake --build . --config Release && cd ../../
+      run: cd vvenc && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../../iostool.cmake -DCMAKE_OSX_DEPLOYMENT_TARGET="10.15" .. -G "Xcode" && cmake --build . --config Release && cd ../../
     - name: Build vvdec
-      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../../iostool.cmake .. -G "Xcode" && cmake --build . --config Release && cd ../../
+      run: cd vvdec && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../../iostool.cmake -DCMAKE_OSX_DEPLOYMENT_TARGET="10.15" .. -G "Xcode" && cmake --build . --config Release && cd ../../
     - name: Try codesign to avoid killed 9
       run: sudo codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime ./vvenc/bin/release-static/* && sudo codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime ./vvdec/bin/release-static/*
     - name: Zip Release of vvenc
