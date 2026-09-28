@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v4
     - name: Disable XCode signing before git clone and build
